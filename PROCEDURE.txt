@@ -1,0 +1,53 @@
+CREATE OR REPLACE PROCEDURE ADD_KLIENT (im VARCHAR, nazw VARCHAR, tele number, miast varchar, r number) 
+AS 
+ID_KLIENT2 NUMBER;
+BEGIN 
+INSERT INTO KLIENT
+VALUES (ID_KLIENT2,im,nazw,tele,miast,r);
+ID_KLIENT2:=KLIENT_SEQ.CURRVAL;
+END ADD_KLIENT;
+/
+
+
+
+CREATE OR REPLACE PROCEDURE ADD_WYPOZYCZENIE (vin NUMBER, klient NUMBER, wypozyczalnia NUMBER, pracownik NUMBER, dni NUMBER) 
+AS 
+ID_WYPOZYCZENIE2 NUMBER;
+rek_auto AUTO%ROWTYPE;
+BEGIN
+SELECT ubezpieczenie, przeglad, stan INTO rek_auto.ubezpieczenie, rek_auto.przeglad, rek_auto.stan FROM auto WHERE nr_vin = vin;
+IF(sysdate + dni) < rek_auto.ubezpieczenie AND (sysdate + dni) < rek_auto.przeglad AND rek_auto.stan = 1
+THEN
+INSERT INTO WYPOZYCZENIE
+VALUES (ID_WYPOZYCZENIE2,vin,klient,wypozyczalnia,pracownik,NULL,sysdate,NULL,NULL);
+ID_WYPOZYCZENIE2 := WYPOZYCZENIE_SEQ.CURRVAL;
+UPDATE auto SET stan = 0 WHERE nr_vin = vin;
+ELSE raise_application_error (0,'Blad');
+END IF;
+END ADD_WYPOZYCZENIE;
+/
+
+CREATE OR REPLACE PROCEDURE ADD_ZWROT (id_wyp NUMBER, id_prac NUMBER) 
+AS 
+ID_WYPOZYCZENIE2 NUMBER;
+KOSZT_WYPOZYCZENIA NUMBER := obliczenia.cena_zwrot(id_wyp);
+REK_WYP WYPOZYCZENIE%ROWTYPE;
+BEGIN
+declare TYPE tablica IS VARRAY(30) OF NUMBER(30);
+tab tablica:=tablica(NULL,NULL);
+begin
+tab(1):=0;
+tab(2):=1;
+SELECT nr_vin, data_zwr INTO rek_wyp.nr_vin, rek_wyp.data_zwr FROM wypozyczenie WHERE id_wypozyczenie = id_wyp;
+IF rek_wyp.data_zwr IS NULL 
+THEN
+UPDATE wypozyczenie SET data_zwr = sysdate, id_pracownik_zwr = id_prac, koszt = koszt_wypozyczenia WHERE id_wypozyczenie = id_wyp;
+UPDATE auto SET stan = tab(2) WHERE nr_vin = rek_wyp.nr_vin;
+ELSE raise_application_error (0,'Blad');
+END IF;
+END tablica;
+END ADD_ZWROT;
+/
+
+
+
