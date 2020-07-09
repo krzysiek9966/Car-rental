@@ -1,6 +1,6 @@
 # <h1 align="center">Wypożyczalnia Samochodowa  <br/>  Java & Oracle(PL/SQL)</h1>  
    
-![Alt Text](wypo.gif)
+![Alt Text](visualisation.gif)
 
 <br/>
 
