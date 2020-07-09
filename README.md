@@ -1,7 +1,6 @@
 # <h1 align="center">**Wypożyczalnia Samochodowa**</h1>
-<p align="center">Java & Oracle(PL/SQL)</p>
+###### <h2 align="center">Java & Oracle(PL/SQL)</h2>
 
-------------------
 
 
 -  Projekt został stworzony w celu zarządzania wypożyczalnią samochodową z trzema placówkami _(Rzeszów, Kraków oraz Warszawa)_ przez pracowników. Jest oparty o system zarządzania relacyjną bazą danych Oracle, która zawiera 6 encji powiązanych ze sobą.
@@ -11,3 +10,4 @@
 
 
 -  Baza danych wykonana została przy użyciu _Oracle Database 11g XE_. Zawiera 6 encji oraz wykorzystuje: _funkcje, procedury, pakiety, sekwencje, trigery, kursory, rekordy oraz tablice_.
+ 
