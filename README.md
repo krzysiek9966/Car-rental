@@ -1,7 +1,7 @@
-# <center>**Wypożyczalnia Samochodowa**</center>
+# <h1 align="center">**Wypożyczalnia Samochodowa**</h1>
+<p align="center">Java & Oracle(PL/SQL)</p>
 ------------------
-# Car-rental
-Java &amp; PL/SQL
+
 
 -  Projekt został stworzony w celu zarządzania wypożyczalnią samochodową z trzema placówkami _(Rzeszów, Kraków oraz Warszawa)_ przez pracowników. Jest oparty o system zarządzania relacyjną bazą danych Oracle, która zawiera 6 encji powiązanych ze sobą.
 
